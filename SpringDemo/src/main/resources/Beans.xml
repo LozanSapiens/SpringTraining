@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:component-scan base-package="com.sapiens.DeclarativeTM.serviceImpl,com.sapiens.DeclarativeTM.daoImpl"/>
+    <context:property-placeholder location="application.properties"/>
+    <bean id="dataSourceBean" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="${db.driverClassName}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+        <property name="initialSize" value="${pool.initialSize}"/>
+    </bean>
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceBean"/>
+    </bean>
+    <bean id="jdbcTemplateBean" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref = "dataSourceBean"/>
+    </bean>
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager"/>
+</beans>
+
+
+
+
+
+
+
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xmlns:util="http://www.springframework.org/schema/util"-->
+<!--       xmlns:tx="http://www.springframework.org/schema/tx"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+<!--       http://www.springframework.org/schema/beans/spring-beans.xsd-->
+<!--       http://www.springframework.org/schema/tx-->
+<!--       https://www.springframework.org/tx/spring-tx.xsd ">-->
+<!--    <tx:annotation-driven transaction-manager="txnManagerBean" proxy-target-class="true"/>-->
+<!--    <bean id="EmployeeDAOBean" class="com.sapiens.ProgramaticTM.EmployeeDAO">-->
+<!--        <property name="jdbcTemplate" ref="jdbcTemplateBean"/>-->
+<!--        <property name="transactionTemplate" ref="transactionTemplateBean"/>-->
+<!--    </bean>-->
+<!--    <bean id="jdbcTemplateBean" class="org.springframework.jdbc.core.JdbcTemplate">-->
+<!--        <property name="dataSource" ref = "dataSourceBean"/>-->
+<!--    </bean>-->
+<!--    <bean id="transactionTemplateBean" class="org.springframework.transaction.support.TransactionTemplate">-->
+<!--        <property name="transactionManager" ref="txnManagerBean"/>-->
+<!--    </bean>-->
+<!--    <bean id="txnManagerBean" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+<!--        <property name="dataSource" ref="dataSourceBean"/>-->
+<!--    </bean>-->
+<!--    <bean id="dataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+<!--        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://localhost:3306/jdbcdemo"/>-->
+<!--        <property name="username" value="root"/>-->
+<!--        <property name="password" value="root"/>-->
+<!--    </bean>-->
+<!--</beans>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+<!--http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">-->
+
+<!--    <bean id ="employee1" class="com.sapiens.Spring.Employee">-->
+<!--        <property name="id" value="1"/>-->
+<!--        <property name="name" value="lolo la"/>-->
+<!--        <property name="age" value="24"/>-->
+<!--        <property name="gender" value="Female"/>-->
+<!--    </bean>-->
+<!--    <bean id ="employee2" class="com.sapiens.Spring.Employee">-->
+<!--        <property name="id" value="2"/>-->
+<!--        <property name="name" value="nono na"/>-->
+<!--        <property name="age" value="28"/>-->
+<!--        <property name="gender" value="Female"/>-->
+<!--    </bean>-->
+<!--    <bean id ="employee3" class="com.sapiens.Spring.Employee">-->
+<!--        <property name="id" value="3"/>-->
+<!--        <property name="name" value="dodo da"/>-->
+<!--        <property name="age" value="30"/>-->
+<!--        <property name="gender" value="male"/>-->
+<!--    </bean>-->
+<!--    <bean id ="employee4" class="com.sapiens.Spring.Employee">-->
+<!--        <property name="id" value="4"/>-->
+<!--        <property name="name" value="momo maa"/>-->
+<!--        <property name="age" value="21"/>-->
+<!--        <property name="gender" value="male"/>-->
+<!--    </bean>-->
+
+<!--    <bean id ="address1" class="com.sapiens.Spring.Address">-->
+<!--        <property name="city" value="Isyfia"/>-->
+<!--        <property name="state" value="aba hoshi"/>-->
+<!--        <property name="country" value="Israel"/>-->
+<!--        <property name="pincode" value="74747"/>-->
+<!--        <property name="PO" value="12345"/>-->
+<!--        <property name="boxNumber" value="112"/>-->
+<!--    </bean>-->
+<!--    <bean id ="address2" class="com.sapiens.Spring.Address">-->
+<!--        <property name="city" value="Haifa"/>-->
+<!--        <property name="state" value="aba hoshi"/>-->
+<!--        <property name="country" value="Israel"/>-->
+<!--        <property name="pincode" value="24242"/>-->
+<!--        <property name="PO" value="2345"/>-->
+<!--        <property name="boxNumber" value="456"/>-->
+<!--    </bean>-->
+<!--    <bean id ="address3" class="com.sapiens.Spring.Address">-->
+<!--        <property name="city" value="Tel-Aviv"/>-->
+<!--        <property name="state" value="aba hoshi"/>-->
+<!--        <property name="country" value="Israel"/>-->
+<!--        <property name="pincode" value="23231"/>-->
+<!--        <property name="PO" value="15556"/>-->
+<!--        <property name="boxNumber" value="678"/>-->
+<!--    </bean>-->
+<!--    <bean id ="address4" class="com.sapiens.Spring.Address">-->
+<!--        <property name="city" value="Dalia"/>-->
+<!--        <property name="state" value="aba hoshi"/>-->
+<!--        <property name="country" value="Israel"/>-->
+<!--        <property name="pincode" value="4242"/>-->
+<!--        <property name="PO" value="55454"/>-->
+<!--        <property name="boxNumber" value="987"/>-->
+<!--    </bean>-->
+
+<!--    <bean id ="contact1" class="com.sapiens.Spring.Contact">-->
+<!--        <property name="primaryMobileNo" value="0563637"/>-->
+<!--        <property name="secondaryMobileNo" value="0948228"/>-->
+<!--        <property name="emergencyContactNo" value="0426642"/>-->
+<!--        <property name="emailID" value="lolo@hotmail.com"/>-->
+<!--        <property name="officialMailID" value="lolo@company.com"/>-->
+<!--    </bean>-->
+<!--    <bean id ="contact2" class="com.sapiens.Spring.Contact">-->
+<!--        <property name="primaryMobileNo" value="32525"/>-->
+<!--        <property name="secondaryMobileNo" value="53535"/>-->
+<!--        <property name="emergencyContactNo" value="35422"/>-->
+<!--        <property name="emailID" value="nono@hotmail.com"/>-->
+<!--        <property name="officialMailID" value="nono@company.com"/>-->
+<!--    </bean>-->
+<!--    <bean id ="contact3" class="com.sapiens.Spring.Contact">-->
+<!--        <property name="primaryMobileNo" value="52524"/>-->
+<!--        <property name="secondaryMobileNo" value="4234242"/>-->
+<!--        <property name="emergencyContactNo" value="523252"/>-->
+<!--        <property name="emailID" value="dood@hotmail.com"/>-->
+<!--        <property name="officialMailID" value="dodo@company.com"/>-->
+<!--    </bean>-->
+<!--    <bean id ="contact4" class="com.sapiens.Spring.Contact">-->
+<!--        <property name="primaryMobileNo" value="253422"/>-->
+<!--        <property name="secondaryMobileNo" value="63425"/>-->
+<!--        <property name="emergencyContactNo" value="2432434"/>-->
+<!--        <property name="emailID" value="momo@hotmail.com"/>-->
+<!--        <property name="officialMailID" value="momo@company.com"/>-->
+<!--    </bean>-->
+
+<!--    <bean id ="officialDetail1" class="com.sapiens.Spring.OfficialDetail">-->
+<!--        <property name="eduQualification" value="BA in Statistics"/>-->
+<!--        <property name="percentage" value="80"/>-->
+<!--        <property name="designation" value="CEO"/>-->
+<!--        <property name="yearOfExp" value="3"/>-->
+<!--        <property name="currentCompanyName" value="Sapiens"/>-->
+<!--    </bean>-->
+<!--    <bean id ="officialDetail2" class="com.sapiens.Spring.OfficialDetail">-->
+<!--        <property name="eduQualification" value="Bagrut"/>-->
+<!--        <property name="percentage" value="97"/>-->
+<!--        <property name="designation" value="CEO"/>-->
+<!--        <property name="yearOfExp" value="4"/>-->
+<!--        <property name="currentCompanyName" value="Sapiens"/>-->
+<!--    </bean>-->
+<!--    <bean id ="officialDetail3" class="com.sapiens.Spring.OfficialDetail">-->
+<!--        <property name="eduQualification" value="Java qualification"/>-->
+<!--        <property name="percentage" value="85"/>-->
+<!--        <property name="designation" value="CEO"/>-->
+<!--        <property name="yearOfExp" value="3"/>-->
+<!--        <property name="currentCompanyName" value="Sapiens"/>-->
+<!--    </bean>-->
+<!--    <bean id ="officialDetail4" class="com.sapiens.Spring.OfficialDetail">-->
+<!--        <property name="eduQualification" value="BA"/>-->
+<!--        <property name="percentage" value="70"/>-->
+<!--        <property name="designation" value="CEO"/>-->
+<!--        <property name="yearOfExp" value="2"/>-->
+<!--        <property name="currentCompanyName" value="Sapiens"/>-->
+<!--    </bean>-->
+
+<!--</beans>-->
+
+
+
